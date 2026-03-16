@@ -1,0 +1,104 @@
+
+class Musica {
+    int id;
+    String nome_musica;
+    String artista;
+    Musica proxima_musica;  
+    Musica musica_anterior; 
+
+    public Musica(int id, String nome, String artista) {
+        this.id = id;
+        this.nome_musica = nome;
+        this.artista = artista;
+        this.proxima_musica = null;
+        this.musica_anterior = null;
+    }
+}
+
+class Playlist {
+    Musica inicio;
+    Musica fim;
+
+    public Playlist() {
+        this.inicio = null;
+        this.fim = null;
+    }
+
+    public void adicionarNoFinal(int id, String nome, String artista) {
+        Musica novaMusica = new Musica(id, nome, artista);
+
+        if (inicio == null) { 
+            inicio = novaMusica;
+            fim = novaMusica;
+        } else {
+            novaMusica.musica_anterior = fim;
+            fim.proxima_musica = novaMusica; 
+            fim = novaMusica;         
+        }
+    }
+
+
+    public void removerDoInicio() {
+        if (inicio == null) {
+            System.out.println("A playlist já está vazia.");
+            return;
+        }
+
+        System.out.println("\n[Removendo do início: " + inicio.nome_musica + " foi ouvida]");
+        
+        if (inicio == fim) { 
+            inicio = null;
+            fim = null;
+        } else {
+            inicio = inicio.proxima_musica; 
+            inicio.musica_anterior = null; 
+        }
+    }
+
+    public void listarNormal() {
+        System.out.println("\n--- PLAYLIST ATUAL (COMEÇO AO FIM) ---");
+        Musica atual = inicio;
+        while (atual != null) {
+            System.out.println("ID: " + atual.id + " | " + atual.nome_musica + " - " + atual.artista);
+            atual = atual.proxima_musica;
+        }
+    }
+
+    public void listarReversa() {
+        System.out.println("\n--- PLAYLIST REVERSA (FIM AO COMEÇO) ---");
+        Musica atual = fim;
+        while (atual != null) {
+            System.out.println("ID: " + atual.id + " | " + atual.nome_musica + " - " + atual.artista);
+            atual = atual.musica_anterior;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Playlist minhaPlaylist = new Playlist();
+
+        // Inserindo as 5 músicas
+        minhaPlaylist.adicionarNoFinal(1, "Amado", "Vanessa da Mata");
+        minhaPlaylist.adicionarNoFinal(2, "Eternamente", "Gal Costa");
+        minhaPlaylist.adicionarNoFinal(3, "Preciso dizer que te amo", "Cazuza");
+        minhaPlaylist.adicionarNoFinal(4, "Será que é amor", "Arlindo Cruz");
+        minhaPlaylist.adicionarNoFinal(5, "Flor de tangirina", "Alceu valença");
+
+        minhaPlaylist.listarNormal();
+        minhaPlaylist.listarReversa();
+
+        System.out.println("\n--- SIMULANDO PLAYER ---");
+        Musica player = minhaPlaylist.inicio; // Começa na primeira
+        System.out.println("Tocando agora: " + player.nome_musica);
+
+        player = player.proxima_musica.proxima_musica;
+        System.out.println("Avançou 2 músicas... Agora em: " + player.nome_musica);
+
+        player = player.musica_anterior;
+        System.out.println("Voltou 1 música... Agora em: " + player.nome_musica);
+
+        minhaPlaylist.removerDoInicio();
+        minhaPlaylist.listarNormal();
+    }
+}
