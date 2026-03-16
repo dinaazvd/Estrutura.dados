@@ -102,3 +102,4 @@ public class Main {
         minhaPlaylist.listarNormal();
     }
 }
+// Numa lista encadeada dupla, cada nó armazena o elemento, uma referência para o próximo nó, e uma referência para o nó anterior. Isso garante a navegação para frente e para trás com velocidade instantânea. Além disso, por ser uma estrutura dinâmica, ela permite adicionar ou remover músicas a qualquer momento sem a necessidade de reorganizar todos os elementos, tornando o gerenciamento muito mais eficiente e fluido para o usuário.
