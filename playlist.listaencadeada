@@ -56,7 +56,7 @@ class Playlist {
     }
 
     public void listarNormal() {
-        System.out.println("\n--- PLAYLIST ATUAL (COMEÇO AO FIM) ---");
+        System.out.println("\n PLAYLIST ATUAL (COMEÇO AO FIM) ");
         Musica atual = inicio;
         while (atual != null) {
             System.out.println("ID: " + atual.id + " | " + atual.nome_musica + " - " + atual.artista);
@@ -65,7 +65,7 @@ class Playlist {
     }
 
     public void listarReversa() {
-        System.out.println("\n--- PLAYLIST REVERSA (FIM AO COMEÇO) ---");
+        System.out.println("\n PLAYLIST REVERSA (FIM AO COMEÇO) ");
         Musica atual = fim;
         while (atual != null) {
             System.out.println("ID: " + atual.id + " | " + atual.nome_musica + " - " + atual.artista);
@@ -88,7 +88,7 @@ public class Main {
         minhaPlaylist.listarNormal();
         minhaPlaylist.listarReversa();
 
-        System.out.println("\n--- SIMULANDO PLAYER ---");
+        System.out.println("\n SIMULANDO PLAYER ");
         Musica player = minhaPlaylist.inicio; // Começa na primeira
         System.out.println("Tocando agora: " + player.nome_musica);
 
