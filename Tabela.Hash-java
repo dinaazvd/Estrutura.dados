@@ -1,0 +1,94 @@
+class No {
+    int chave;
+    String valor;
+    No proximo;
+
+    public No(int chave, String valor) {
+        this.chave = chave;
+        this.valor = valor;
+        this.proximo = null;
+    }
+}
+
+class ListaEncadeada {
+    private No inicio;
+
+    public ListaEncadeada() {
+        inicio = null;
+    }
+
+    public void inserir(int chave, String valor) {
+        No novo = new No(chave, valor);
+
+        if (inicio == null) {
+            inicio = novo;
+        } else {
+            No atual = inicio;
+            while (atual.proximo != null) {
+                atual = atual.proximo;
+            }
+            atual.proximo = novo;
+        }
+    }
+
+    public void exibir() {
+        No atual = inicio;
+        while (atual != null) {
+            System.out.print("[" + atual.chave + " - " + atual.valor + "] -> ");
+            atual = atual.proximo;
+        }
+        System.out.print("null");
+    }
+}
+
+class TabelaHash {
+    private ListaEncadeada[] tabela;
+    private int tamanho;
+
+    public TabelaHash(int tamanho) {
+        this.tamanho = tamanho;
+        tabela = new ListaEncadeada[tamanho];
+    }
+
+    private int hash(int chave) {
+        return chave % tamanho;
+    }
+
+    public void inserir(int chave, String valor) {
+        int indice = hash(chave);
+
+        if (tabela[indice] == null) {
+            tabela[indice] = new ListaEncadeada();
+        }
+
+        tabela[indice].inserir(chave, valor);
+    }
+
+    public void exibir() {
+        for (int i = 0; i < tamanho; i++) {
+            System.out.print("Índice " + i + ": ");
+            if (tabela[i] != null) {
+                tabela[i].exibir();
+            } else {
+                System.out.print("null");
+            }
+            System.out.println();
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        TabelaHash tabela = new TabelaHash(5);
+
+        // Inserindo valores (com colisões)
+        tabela.inserir(1, "Diná");
+        tabela.inserir(6, "Fabi");  // colisão com 1
+        tabela.inserir(8, "Maria"); // colisão com 1
+        tabela.inserir(2, "Dani");
+        tabela.inserir(7, "Lis"); // colisão com 2
+
+        tabela.exibir();
+    }
+}
