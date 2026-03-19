@@ -82,12 +82,11 @@ public class Main {
 
         TabelaHash tabela = new TabelaHash(5);
 
-        // Inserindo valores (com colisões)
         tabela.inserir(1, "Diná");
-        tabela.inserir(6, "Fabi");  // colisão com 1
-        tabela.inserir(8, "Maria"); // colisão com 1
+        tabela.inserir(6, "Fabi");  
+        tabela.inserir(8, "Maria");
         tabela.inserir(2, "Dani");
-        tabela.inserir(7, "Lis"); // colisão com 2
+        tabela.inserir(7, "Lis"); 
 
         tabela.exibir();
     }
