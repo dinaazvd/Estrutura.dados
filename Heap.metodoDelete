@@ -1,0 +1,57 @@
+public class MaxHeap {
+    private int[] heap;
+    private int tamanho;
+
+    public MaxHeap(int capacidade) {
+        heap = new int[capacidade];
+        tamanho = 0;
+    }
+
+    private int filhoEsquerda(int i) { return 2 * i + 1; }
+    private int filhoDireita(int i) { return 2 * i + 2; }
+
+    public int removerRaiz() {
+        if (tamanho == 0) {
+            System.out.println("Heap vazio!");
+            return -1;
+        }
+        int raiz = heap[0];
+        heap[0] = heap[tamanho - 1];
+        tamanho--;
+        corrigirDescendo(0);
+        return raiz;
+    }
+
+    private void corrigirDescendo(int i) {
+        int maior = i;
+        int esquerda = filhoEsquerda(i);
+        int direita = filhoDireita(i);
+
+        if (esquerda < tamanho && heap[esquerda] > heap[maior]) {
+            maior = esquerda;
+        }
+        if (direita < tamanho && heap[direita] > heap[maior]) {
+            maior = direita;
+        }
+
+        if (maior != i) {
+            int temp = heap[i];
+            heap[i] = heap[maior];
+            heap[maior] = temp;
+            corrigirDescendo(maior);
+        }
+    }
+
+    public static void main(String[] args) {
+        MaxHeap meuHeap = new MaxHeap(10);
+
+        meuHeap.heap[0] = 50; 
+        meuHeap.heap[1] = 34;
+        meuHeap.heap[2] = 43;
+        meuHeap.heap[3] = 20;
+        meuHeap.tamanho = 4;
+
+        System.out.println("Removendo a raiz: " + meuHeap.removerRaiz());
+        System.out.println("Nova raiz após o ajuste: " + meuHeap.heap[0]);
+    }
+}
