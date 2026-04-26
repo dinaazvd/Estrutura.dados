@@ -1,0 +1,62 @@
+class No {
+    int valor;
+    No esquerda, direita;
+
+    public No(int valor) {
+        this.valor = valor;
+        this.esquerda = null;
+        this.direita = null;
+    }
+}
+
+class ArvoreBuscaBinaria {
+    No raiz;
+
+    public ArvoreBuscaBinaria() {
+        raiz = null;
+    }
+
+    public void inserir(int valor) {
+        raiz = inserirRecursivo(raiz, valor);
+    }
+
+    private No inserirRecursivo(No atual, int valor) {
+        if (atual == null) {
+            return new No(valor);
+        }
+
+        if (valor < atual.valor) {
+            atual.esquerda = inserirRecursivo(atual.esquerda, valor);
+        } else if (valor > atual.valor) {
+            atual.direita = inserirRecursivo(atual.direita, valor);
+        }
+
+        return atual;
+    }
+
+    public void percursoPosOrdem(No no) {
+        if (no == null) {
+            return;
+        }
+
+        percursoPosOrdem(no.esquerda);
+
+        percursoPosOrdem(no.direita);
+
+        System.out.print(no.valor + " ");
+    }
+
+    public static void main(String[] args) {
+        ArvoreBuscaBinaria arvore = new ArvoreBuscaBinaria();
+
+        int[] valores = {50, 30, 70, 20, 40, 60, 80};
+
+        System.out.println("Inserindo valores...");
+        for (int v : valores) {
+            arvore.inserir(v);
+        }
+
+        System.out.println("\nResultado do Percurso Pós-Ordem (Esquerda -> Direita -> Raiz):");
+        arvore.percursoPosOrdem(arvore.raiz);
+    }
+}
